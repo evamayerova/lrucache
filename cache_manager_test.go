@@ -41,10 +41,3 @@ func TestCacheManager(t *testing.T) {
 		t.Errorf("nil object was put into cache successfully")
 	}
 }
-
-func TestDistribution(t *testing.T) {
-	cm, _ := cache.NewManager(2, 3)
-
-	cm.Put(0, 0, 300, 1)
-	cm.Put(2, 0, 300, 1)
-}
