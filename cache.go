@@ -82,8 +82,8 @@ func (c *Cache) Read(k interface{}) interface{} {
 	return nil
 }
 
-// Put new item into cache
-func (c *Cache) Put(k, v interface{}, ttl int, chance float32) error {
+// Write new item into cache
+func (c *Cache) Write(k, v interface{}, ttl int, chance float32) error {
 	// save item into cache with probability determined by 'chance'
 	if rand.Float32() > chance {
 		return nil

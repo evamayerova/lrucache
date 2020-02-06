@@ -17,7 +17,7 @@ func TestCache(t *testing.T) {
 	}
 
 	for _, k := range items {
-		c.Put(k, 1, 300, 1)
+		c.Write(k, 1, 300, 1)
 		time.Sleep(100 * time.Millisecond)
 	}
 
@@ -37,15 +37,15 @@ func TestCache(t *testing.T) {
 
 func TestChance(t *testing.T) {
 	c := cache.NewCache(5)
-	c.Put("0", 1, 300, 0)
+	c.Write("0", 1, 300, 0)
 	time.Sleep(5 * time.Millisecond)
 	if c.Read("0") != nil {
-		t.Errorf("Element had 0 chance to be put, but still was")
+		t.Errorf("Element had 0 chance to be Write, but still was")
 	}
-	c.Put("0", 1, 300, 1)
+	c.Write("0", 1, 300, 1)
 	time.Sleep(5 * time.Millisecond)
 	if c.Read("0") == nil {
-		t.Errorf("Element had 1 chance to be put, but wasnt")
+		t.Errorf("Element had 1 chance to be Write, but wasnt")
 	}
 }
 
@@ -56,14 +56,14 @@ func TestTTL(t *testing.T) {
 		keys = append(keys, i)
 	}
 
-	c.Put(keys[0], 0, 1, 1)
+	c.Write(keys[0], 0, 1, 1)
 	time.Sleep(2000 * time.Millisecond)
 	if c.Read(keys[0]) != nil {
 		t.Error("TTL does not work")
 	}
 
 	for i := 1; i < 5; i++ {
-		c.Put(keys[i], 0, 1, 1)
+		c.Write(keys[i], 0, 1, 1)
 	}
 
 	time.Sleep(2000 * time.Millisecond)

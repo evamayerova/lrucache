@@ -37,15 +37,15 @@ func (cm *Manager) selectCache(k int64) (*Cache, error) {
 	return cm.caches[int(k)%cm.cacheCnt], nil
 }
 
-// Put new item into cache. The key must be a numerical interface (convertible to int64), otherwise it will lead to an error.
-func (cm *Manager) Put(k, v interface{}, ttl int, chance float32) error {
+// Write new item into cache. The key must be a numerical interface (convertible to int64), otherwise it will lead to an error.
+func (cm *Manager) Write(k, v interface{}, ttl int, chance float32) error {
 	num, err := utils.NumericInterfToInt(k)
 	if err != nil {
 		return err
 	}
 	cache, err := cm.selectCache(num)
 	if err == nil {
-		return cache.Put(k, v, ttl, chance)
+		return cache.Write(k, v, ttl, chance)
 	}
 	return err
 }
