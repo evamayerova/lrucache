@@ -59,9 +59,9 @@ func (c *Cache) Len() int {
 }
 
 // Read cached item if present, otherwise return nil
-func (c *Cache) Read(k interface{}) interface{} {
+func (c *Cache) Read(key interface{}) interface{} {
 	c.rLockMtx()
-	if item, ok := c.newBuffer[k]; ok {
+	if item, ok := c.newBuffer[key]; ok {
 		c.rUnlockMtx()
 		// ttl
 		if item.deadline < time.Now().Unix() {
@@ -69,7 +69,7 @@ func (c *Cache) Read(k interface{}) interface{} {
 		}
 		return item
 	}
-	if item, ok := c.oldBuffer[k]; ok {
+	if item, ok := c.oldBuffer[key]; ok {
 		c.rUnlockMtx()
 		// ttl
 		if item.deadline < time.Now().Unix() {
@@ -82,16 +82,16 @@ func (c *Cache) Read(k interface{}) interface{} {
 	return nil
 }
 
-// Write new item into cache
-func (c *Cache) Write(k, v interface{}, ttl int, chance float32) error {
+// Write new item into cache. TTL specifies the maximum living time of a record, chance defines a probability of a record to be actually inserted into a cache. It can be usefull if you don't need the records to be cached every time.
+func (c *Cache) Write(key, value interface{}, ttl int, chance float32) error {
 	// save item into cache with probability determined by 'chance'
 	if rand.Float32() > chance {
 		return nil
 	}
-	if v == nil {
+	if value == nil {
 		return fmt.Errorf("tried to put nil value into cache")
 	}
-	ci := NewItem(k, v, ttl)
+	ci := NewItem(key, value, ttl)
 	c.asyncWrite(ci)
 	return nil
 }

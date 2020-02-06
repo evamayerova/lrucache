@@ -37,15 +37,15 @@ func (cm *Manager) selectCache(k int64) (*Cache, error) {
 	return cm.caches[int(k)%cm.cacheCnt], nil
 }
 
-// Write new item into cache. The key must be a numerical interface (convertible to int64), otherwise it will lead to an error.
-func (cm *Manager) Write(k, v interface{}, ttl int, chance float32) error {
-	num, err := utils.NumericInterfToInt(k)
+// Write new item into cache. The key must be a numerical interface (convertible to int64), otherwise it will lead to an error. TTL specifies the maximum living time of a record, chance defines a probability of a record to be actually inserted into a cache. It can be usefull if you don't need the records to be cached every time.
+func (cm *Manager) Write(key, value interface{}, ttl int, chance float32) error {
+	num, err := utils.NumericInterfToInt(key)
 	if err != nil {
 		return err
 	}
 	cache, err := cm.selectCache(num)
 	if err == nil {
-		return cache.Write(k, v, ttl, chance)
+		return cache.Write(key, value, ttl, chance)
 	}
 	return err
 }
