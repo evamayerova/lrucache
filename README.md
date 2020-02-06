@@ -32,3 +32,22 @@ chance := float32(1) // 1.0 for 100% to be cached
 c.Write(key, val, ttl, chance)
 v := c.Read(key)
 ```
+
+## Multiple caches
+
+The lib also allows to create multiple caches and reduce the time on a mutex wait even more. With use of a cache `Manager`, you can specify the number of caches and it will distribute the keys evenly using modulo of the key. The condition is, that the keys must be convertable to `int64`. The interface is the same as for a single cache.
+
+### Example usage
+```
+cacheNr := 2
+capacity := 10 // overall capacity - it is splitted into the caches evenly
+cm := lrucache.NewManager(cacheNr, capacity)
+
+key := 0
+val := 1
+ttl := 300 // seconds
+chance := float32(1) // 1.0 for 100% to be cached
+
+cm.Write(key, val, ttl, chance)
+v := cm.Read(key)
+```
