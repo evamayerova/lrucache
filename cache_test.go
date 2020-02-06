@@ -10,7 +10,7 @@ import (
 type CacheItems []interface{}
 
 func TestCache(t *testing.T) {
-	c := cache.NewCache(5, "0")
+	c := cache.NewCache(5)
 	items := CacheItems{}
 	for i := 0; i < 10; i++ {
 		items = append(items, i)
@@ -36,7 +36,7 @@ func TestCache(t *testing.T) {
 }
 
 func TestChance(t *testing.T) {
-	c := cache.NewCache(5, "0")
+	c := cache.NewCache(5)
 	c.Put("0", 1, 300, 0)
 	time.Sleep(5 * time.Millisecond)
 	if c.Read("0") != nil {
@@ -50,7 +50,7 @@ func TestChance(t *testing.T) {
 }
 
 func TestTTL(t *testing.T) {
-	c := cache.NewCache(5, "0")
+	c := cache.NewCache(5)
 	var keys []int
 	for i := 0; i < 5; i++ {
 		keys = append(keys, i)

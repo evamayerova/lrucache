@@ -34,7 +34,7 @@ type Cache struct {
 }
 
 // NewCache creates new instance of Cache
-func NewCache(cap int, idx string) *Cache {
+func NewCache(cap int) *Cache {
 	c := &Cache{
 		newBuffer: map[interface{}]Item{},
 		oldBuffer: map[interface{}]Item{},

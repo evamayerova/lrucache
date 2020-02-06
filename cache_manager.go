@@ -2,7 +2,6 @@ package cache
 
 import (
 	"fmt"
-	"strconv"
 
 	"github.com/evamayerova/lrucache/utils"
 )
@@ -26,7 +25,7 @@ func NewManager(cacheCnt int, cap int) (*Manager, error) {
 	}
 	cm.caches = make(map[int]*Cache, cacheCnt)
 	for i := 0; i < cacheCnt; i++ {
-		cm.caches[i] = NewCache(cacheCap, strconv.Itoa(i))
+		cm.caches[i] = NewCache(cacheCap)
 	}
 	return &cm, nil
 }
