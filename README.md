@@ -1,6 +1,6 @@
 # lrucache
 
-Fast relaxed LRU implementation in Golang
+Fast relaxed multithread LRU implementation in Golang
 
 ## Implementation
 The theorethical and explicit implementation of last-recently-used cache is expensive. It requires to have a structure (map) with the chached data and also a linked list which is ordered by the recency of the data writes or reads. The modification of the linked list is needed for every operation, and the locking of it slows the implementation.
