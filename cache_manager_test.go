@@ -11,7 +11,7 @@ func TestCacheManager(t *testing.T) {
 	c, _ := cache.NewManager(1, 5)
 
 	for k := 0; k < 5; k++ {
-		c.Write(k, 1, 300, 1)
+		c.Write(k, 1, 300)
 		time.Sleep(100 * time.Millisecond)
 	}
 	time.Sleep(5 * time.Millisecond)
@@ -23,13 +23,13 @@ func TestCacheManager(t *testing.T) {
 		time.Sleep(100 * time.Millisecond)
 	}
 	c.Read(0)
-	c.Write(5, 1, 1, 1)
+	c.Write(5, 1, 1)
 	time.Sleep(100 * time.Millisecond)
-	c.Write(5, 1, 10, 1)
+	c.Write(5, 1, 10)
 	time.Sleep(100 * time.Millisecond)
-	c.Write(1, nil, 300, 1)
+	c.Write(1, nil, 300)
 	time.Sleep(100 * time.Millisecond)
-	err := c.Write(nil, 1, 300, 1)
+	err := c.Write(nil, 1, 300)
 	if err == nil {
 		t.Errorf("nil key was Write into cache successfully")
 	}

@@ -27,9 +27,8 @@ c := lrucache.NewCache(capacity)
 key := 0
 val := 1
 ttl := 300 // seconds
-chance := float32(1) // 1.0 for 100% to be cached
 
-c.Write(key, val, ttl, chance)
+c.Write(key, val, ttl)
 v := c.Read(key)
 ```
 
@@ -46,8 +45,7 @@ cm := lrucache.NewManager(cacheNr, capacity)
 key := 0
 val := 1
 ttl := 300 // seconds
-chance := float32(1) // 1.0 for 100% to be cached
 
-cm.Write(key, val, ttl, chance)
+cm.Write(key, val, ttl)
 v := cm.Read(key)
 ```

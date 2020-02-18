@@ -8,11 +8,11 @@ import (
 func TestDistribution(t *testing.T) {
 	cm, _ := NewManager(2, 6)
 
-	err := cm.Write(0, 0, 300, 1)
+	err := cm.Write(0, 0, 300)
 	if err != nil {
 		t.Error(err.Error())
 	}
-	err = cm.Write(2, 0, 300, 1)
+	err = cm.Write(2, 0, 300)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -28,7 +28,7 @@ func TestDistribution(t *testing.T) {
 func TestWrite(t *testing.T) {
 	cm, _ := NewManager(2, 6)
 
-	err := cm.Write(0, 0, 300, 1)
+	err := cm.Write(0, 0, 300)
 	if err != nil {
 		t.Error(err.Error())
 	}

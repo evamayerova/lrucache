@@ -2,7 +2,6 @@ package cache
 
 import (
 	"fmt"
-	"math/rand"
 	"sync"
 	"time"
 )
@@ -83,11 +82,7 @@ func (c *Cache) Read(key interface{}) interface{} {
 }
 
 // Write new item into cache. TTL specifies the maximum living time of a record, chance defines a probability of a record to be actually inserted into a cache. It can be usefull if you don't need the records to be cached every time.
-func (c *Cache) Write(key, value interface{}, ttl int, chance float32) error {
-	// save item into cache with probability determined by 'chance'
-	if rand.Float32() > chance {
-		return nil
-	}
+func (c *Cache) Write(key, value interface{}, ttl int) error {
 	if value == nil {
 		return fmt.Errorf("tried to put nil value into cache")
 	}
