@@ -66,7 +66,7 @@ func (c *Cache) Read(key interface{}) interface{} {
 		if item.deadline < time.Now().Unix() {
 			return nil
 		}
-		return item
+		return item.value
 	}
 	if item, ok := c.oldBuffer[key]; ok {
 		c.rUnlockMtx()
@@ -75,13 +75,13 @@ func (c *Cache) Read(key interface{}) interface{} {
 			return nil
 		}
 		c.asyncWrite(&item)
-		return item
+		return item.value
 	}
 	c.rUnlockMtx()
 	return nil
 }
 
-// Write new item into cache. TTL specifies the maximum living time of a record, chance defines a probability of a record to be actually inserted into a cache. It can be usefull if you don't need the records to be cached every time.
+// Write new item into cache. TTL specifies the maximum living time of a record.
 func (c *Cache) Write(key, value interface{}, ttl int) error {
 	if value == nil {
 		return fmt.Errorf("tried to put nil value into cache")
